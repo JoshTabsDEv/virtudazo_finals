@@ -756,7 +756,7 @@ app.use(cors());
 app.use(express.json());
 
 // Database connection
-const port = 3306;
+const port = 4000;
 const db = mysql.createPool({
   host: "sql12.freesqldatabase.com",
   user: "sql12808486",
@@ -781,33 +781,33 @@ const client = new OAuth2Client(
 );
 
 // ======================= REGISTER =======================
-app.post("/register", async (req, res) => {
-  const { fullname, username, password } = req.body;
+// app.post("/register", async (req, res) => {
+//   const { fullname, username, password } = req.body;
 
-  if (!fullname || !username || !password) {
-    return res.status(400).json({ success: false, message: "All fields are required." });
-  }
+//   if (!fullname || !username || !password) {
+//     return res.status(400).json({ success: false, message: "All fields are required." });
+//   }
 
-  try {
-    // Check if username already exists
-    const [existing]: any = await db.query("SELECT * FROM users WHERE username = ?", [username]);
-    if (existing.length > 0) {
-      return res.json({ success: false, message: "Username already exists." });
-    }
+//   try {
+//     // Check if username already exists
+//     const [existing]: any = await db.query("SELECT * FROM users WHERE username = ?", [username]);
+//     if (existing.length > 0) {
+//       return res.json({ success: false, message: "Username already exists." });
+//     }
 
-    // For manual login users, google_id and email are not required.
-    await db.query(
-      `INSERT INTO users (fullname, username, password, role, email, google_id)
-       VALUES (?, ?, ?, 'employee', '', '')`,
-      [fullname, username, password]
-    );
+//     // For manual login users, google_id and email are not required.
+//     await db.query(
+//       `INSERT INTO users (fullname, username, password, role, email, google_id)
+//        VALUES (?, ?, ?, 'employee', '', '')`,
+//       [fullname, username, password]
+//     );
 
-    res.json({ success: true, message: "Registration successful!" });
-  } catch (err) {
-    console.error("Registration error:", err);
-    res.status(500).json({ success: false, message: "Registration failed. Please try again." });
-  }
-});
+//     res.json({ success: true, message: "Registration successful!" });
+//   } catch (err) {
+//     console.error("Registration error:", err);
+//     res.status(500).json({ success: false, message: "Registration failed. Please try again." });
+//   }
+// });
 
 
 

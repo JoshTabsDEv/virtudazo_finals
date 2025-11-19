@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 
@@ -19,7 +19,7 @@ export default function Register() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await axios.post("https://aranzado-finals.vercel.app/register", form);
+      const res = await axios.post("/api/register", form);
       setMessage(res.data.message);
       if (res.data.success) setTimeout(() => navigate("/"), 1000);
       else
@@ -35,21 +35,6 @@ export default function Register() {
     }
   };
 
-  // ====== Ping backend to check DB connection ======
-  useEffect(() => {
-    const checkBackend = async () => {
-      try {
-        const res = await axios.get("http://localhost:4000/departments"); // any simple GET route
-        console.log("Backend reachable, database connection seems OK.", res.data);
-      } catch (err) {
-        console.error(
-          "Cannot reach backend or database connection failed:",
-          err
-        );
-      }
-    };
-    checkBackend();
-  }, []);
 
   return (
     <div className="register-page">
