@@ -761,6 +761,7 @@ const db = mysql.createPool({
   user: "sql12808486",
   password: "NWjg9wP4ac", // your Laragon password, usually empty
   database: "sql12808486", // change to your database name
+  port: 3306,
 });
 
 // GOOGLE AUTH SETUP
