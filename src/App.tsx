@@ -2860,10 +2860,10 @@
 
 
 import { Routes, Route, Navigate } from "react-router-dom";
-import Login from "./Login";
-import Dashboard from "./pages/dashboard";
-import GuestDashboard from "./pages/guestdashboard";
-import Register from "./pages/register";
+import Login from "./login";
+import Dashboard from "./Pages/dashboard";
+import GuestDashboard from "./Pages/guestdashboard";
+import Register from "./Pages/register";
 
 export default function App() {
   const fullname = localStorage.getItem("fullname");
@@ -2887,7 +2887,7 @@ export default function App() {
       />
 
       <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/guestdashboard" element={<GuestDashboard />} />
+      <Route path="/guestdashboard" element={<GuestDashboard role=""/>} />
         <Route path="/register" element={<Register />} />
     </Routes>
   );
