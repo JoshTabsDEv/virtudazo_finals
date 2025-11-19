@@ -757,10 +757,10 @@ app.use(express.json());
 
 // Database connection
 const db = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  password: "12345", // your Laragon password, usually empty
-  database: "typescript1", // change to your database name
+  host: "sql12.freesqldatabase.com",
+  user: "sql12808486",
+  password: "NWjg9wP4ac", // your Laragon password, usually empty
+  database: "sql12808486", // change to your database name
 });
 
 // GOOGLE AUTH SETUP
