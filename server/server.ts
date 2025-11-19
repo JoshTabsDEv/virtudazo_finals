@@ -756,7 +756,7 @@ app.use(cors());
 app.use(express.json());
 
 // Database connection
-const port = 4000;
+const port = 3306;
 const db = mysql.createPool({
   host: "sql12.freesqldatabase.com",
   user: "sql12808486",
@@ -764,6 +764,16 @@ const db = mysql.createPool({
   database: "sql12808486", // change to your database name
   
 });
+
+(async () => {
+  try {
+    const connection = await db.getConnection();
+    console.log("✅ Connected to FreeSQLDatabase successfully!");
+    connection.release(); // release back to the pool
+  } catch (err) {
+    console.error("❌ Failed to connect to FreeSQLDatabase:", err);
+  }
+})();
 
 // GOOGLE AUTH SETUP
 const client = new OAuth2Client(
