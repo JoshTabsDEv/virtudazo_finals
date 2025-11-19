@@ -38,7 +38,7 @@ export default function Register() {
 const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
   try {
-    const res = await axios.post("https://aranzado-finals.vercel.app:4000/register", form);
+    const res = await axios.post("http://localhost:4000/register", form);
 
     setMessage(res.data.message);
 
@@ -56,7 +56,7 @@ const handleSubmit = async (e: React.FormEvent) => {
     }
   } catch (err) {
     console.error(err);
-    setMessage("Registration failed. Try again.d");
+    setMessage("Registration failed. Try again.");
     // Optionally clear fields on server error too
     
   }
