@@ -56,7 +56,7 @@ const handleSubmit = async (e: React.FormEvent) => {
     }
   } catch (err) {
     console.error(err);
-    setMessage("Registration failed. Try again.");
+    setMessage("Registration failed. Try again.d");
     // Optionally clear fields on server error too
     
   }
