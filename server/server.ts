@@ -755,6 +755,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const port = ''
 // Database connection
 const db = mysql.createPool({
   host: "sql12.freesqldatabase.com",
@@ -993,6 +994,6 @@ app.delete("/departments/:id", async (req, res) => {
 
 
 // ======================= START SERVER =======================
-app.listen(4000, () => {
+app.listen(port, () => {
   console.log("Server running on http://localhost:4000");
 });

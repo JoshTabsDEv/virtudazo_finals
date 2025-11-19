@@ -815,7 +815,7 @@ export default function Login() {
   // === Manual login ===
   const handleLogin = async () => {
     try {
-      const { data } = await axios.post("http://localhost:4000/login", {
+      const { data } = await axios.post("https://aranzado-finals.vercel.app/login", {
         username,
         password,
       });
@@ -847,7 +847,7 @@ export default function Login() {
         return;
       }
 
-      const res = await axios.post("http://localhost:4000/google-login", {
+      const res = await axios.post("https://aranzado-finals.vercel.app/google-login", {
         token: credentialResponse.credential,
       });
 
