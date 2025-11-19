@@ -795,7 +795,7 @@ app.post("/register", async (req, res) => {
     res.json({ success: true, message: "Registration successful!" });
   } catch (err) {
     console.error("Registration error:", err);
-    res.status(500).json({ success: false, message: "Registration failed. Please try again." });
+    res.status(500).json({ success: false, message: "Registration failed. Please try again!." });
   }
 });
 
