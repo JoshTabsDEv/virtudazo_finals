@@ -30,7 +30,7 @@ export default function Dashboard() {
       const res = await api.get("/departments");
       setDepartments(res.data.data || []);
     } catch (error) {
-      showMessage("Error loading departments.", "error");
+      showMessage("Error loading projects.", "error");
     } finally {
       setLoading(false);
     }
@@ -61,17 +61,17 @@ export default function Dashboard() {
     try {
       if (editingId !== null && editingId > 0) {
         await api.put(`/departments/${editingId}`, form);
-        showMessage("Department updated successfully!", "success");
+        showMessage("Project updated successfully!", "success");
       } else {
         await api.post("/departments", form);
-        showMessage("Department added successfully!", "success");
+        showMessage("Project added successfully!", "success");
       }
 
       setForm({ abbreviation: "", name: "", description: "", status: "" });
       setEditingId(null);
       fetchDepartments();
     } catch (error: any) {
-      showMessage(error.response?.data?.message || "Error submitting form.", "error");
+      showMessage(error.response?.data?.message || "Error submitting project.", "error");
     } finally {
       setSubmitting(false);
     }
@@ -94,13 +94,13 @@ export default function Dashboard() {
   };
 
   const handleDelete = async (id: number) => {
-    if (window.confirm("Are you sure you want to delete this department? This action cannot be undone.")) {
+    if (window.confirm("Are you sure you want to delete this project? This action cannot be undone.")) {
       try {
         await api.delete(`/departments/${id}`);
-        showMessage("Department deleted successfully!", "success");
+        showMessage("Project deleted successfully!", "success");
         fetchDepartments();
       } catch (error: any) {
-        showMessage(error.response?.data?.message || "Error deleting department.", "error");
+        showMessage(error.response?.data?.message || "Error deleting project.", "error");
       }
     }
   };
@@ -120,7 +120,7 @@ export default function Dashboard() {
         <header className="dashboard-header">
           <div className="header-content">
             <div>
-              <h1 className="dashboard-title">Department Management</h1>
+              <h1 className="dashboard-title">Project Management</h1>
               <p className="dashboard-subtitle">Welcome back, {fullname || "User"}</p>
             </div>
             <button className="logout-btn" onClick={handleLogout} title="Logout">
@@ -145,7 +145,7 @@ export default function Dashboard() {
         {/* Form Card */}
         <div className="dashboard-card">
           <div className="card-header">
-            <h2>{editingId ? "Edit Department" : "Add New Department"}</h2>
+            <h2>{editingId ? "Edit Project" : "Add New Project"}</h2>
             {editingId && (
               <button className="cancel-btn" onClick={handleCancel}>
                 Cancel Edit
@@ -155,39 +155,39 @@ export default function Dashboard() {
 
           <div className="form-grid">
             <div className="form-group">
-              <label htmlFor="abbreviation">Abbreviation *</label>
+              <label htmlFor="abbreviation">Project Code *</label>
               <input
                 id="abbreviation"
                 name="abbreviation"
                 type="text"
                 value={form.abbreviation}
                 onChange={handleChange}
-                placeholder="e.g., IT, HR, FIN"
+                placeholder="e.g., PROJ-001, WEB-2024"
                 maxLength={10}
               />
             </div>
 
             <div className="form-group">
-              <label htmlFor="name">Name *</label>
+              <label htmlFor="name">Project Name *</label>
               <input
                 id="name"
                 name="name"
                 type="text"
                 value={form.name}
                 onChange={handleChange}
-                placeholder="Department Name"
+                placeholder="Project Name"
               />
             </div>
 
             <div className="form-group full-width">
-              <label htmlFor="description">Description *</label>
+              <label htmlFor="description">Project Description *</label>
               <input
                 id="description"
                 name="description"
                 type="text"
                 value={form.description}
                 onChange={handleChange}
-                placeholder="Department description"
+                placeholder="Project description and details"
               />
             </div>
 
@@ -218,7 +218,7 @@ export default function Dashboard() {
                 {editingId ? "Updating..." : "Adding..."}
               </span>
             ) : (
-              editingId ? "Update Department" : "Add Department"
+              editingId ? "Update Project" : "Add Project"
             )}
           </button>
         </div>
@@ -226,14 +226,14 @@ export default function Dashboard() {
         {/* Departments Table Card */}
         <div className="dashboard-card">
           <div className="card-header">
-            <h2>Departments</h2>
-            <span className="department-count">{departments.length} {departments.length === 1 ? "department" : "departments"}</span>
+            <h2>Projects</h2>
+            <span className="department-count">{departments.length} {departments.length === 1 ? "project" : "projects"}</span>
           </div>
 
           {loading ? (
             <div className="loading-state">
               <span className="spinner"></span>
-              <p>Loading departments...</p>
+              <p>Loading projects...</p>
             </div>
           ) : departments.length === 0 ? (
             <div className="empty-state">
@@ -241,16 +241,16 @@ export default function Dashboard() {
                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                 <circle cx="12" cy="10" r="3"></circle>
               </svg>
-              <p>No departments found</p>
-              <span>Add a new department to get started</span>
+              <p>No projects found</p>
+              <span>Add a new project to get started</span>
             </div>
           ) : (
             <div className="table-wrapper">
               <table className="departments-table">
                 <thead>
                   <tr>
-                    <th>Abbreviation</th>
-                    <th>Name</th>
+                    <th>Project Code</th>
+                    <th>Project Name</th>
                     <th>Description</th>
                     <th>Status</th>
                     <th>Actions</th>
@@ -274,7 +274,7 @@ export default function Dashboard() {
                           <button 
                             className="action-btn edit-btn" 
                             onClick={() => handleEdit(dept)}
-                            title="Edit department"
+                            title="Edit project"
                           >
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                               <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
@@ -285,7 +285,7 @@ export default function Dashboard() {
                           <button 
                             className="action-btn delete-btn" 
                             onClick={() => handleDelete(dept.id)}
-                            title="Delete department"
+                            title="Delete project"
                           >
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                               <polyline points="3 6 5 6 21 6"></polyline>

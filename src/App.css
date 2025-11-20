@@ -60,7 +60,7 @@
 /* ===== LOGIN PAGE ===== */
 .login-wrapper {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -336,7 +336,7 @@
 }
 
 .input-group label svg {
-  color: #667eea;
+  color: #4f46e5;
   flex-shrink: 0;
 }
 
@@ -354,8 +354,8 @@
 
 .input-group input:focus {
   outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
 }
 
 .input-group input:disabled {
@@ -413,7 +413,7 @@
 .login-btn-primary {
   width: 100%;
   padding: 14px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
   color: white;
   border: none;
   border-radius: 12px;
@@ -430,7 +430,7 @@
 
 .login-btn-primary:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 10px 25px rgba(79, 70, 229, 0.4);
 }
 
 .login-btn-primary svg {
@@ -450,8 +450,8 @@
   width: 100%;
   padding: 12px;
   background: transparent;
-  color: #667eea;
-  border: 2px solid #667eea;
+  color: #4f46e5;
+  border: 2px solid #4f46e5;
   border-radius: 12px;
   font-size: 15px;
   font-weight: 600;
@@ -464,7 +464,7 @@
 }
 
 .register-btn-secondary:hover:not(:disabled) {
-  background: #667eea;
+  background: #4f46e5;
   color: white;
   transform: translateY(-2px);
 }
@@ -564,7 +564,7 @@
   justify-content: center;
   align-items: center;
   min-height: 90vh;
-  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  background: linear-gradient(135deg, #4f46e5, #06b6d4);
 }
 
 /* --- Card Container --- */
@@ -614,8 +614,8 @@
 }
 
 .register-input:focus {
-  border-color: #6e8efb;
-  box-shadow: 0 0 12px rgba(110, 142, 251, 0.4);
+  border-color: #4f46e5;
+  box-shadow: 0 0 12px rgba(79, 70, 229, 0.4);
 }
 
 /* --- Buttons --- */
@@ -629,15 +629,15 @@
   font-weight: 600;
   font-size: 16px;
   transition: all 0.3s ease;
-  background: linear-gradient(90deg, #6e8efb, #a777e3);
+  background: linear-gradient(90deg, #4f46e5, #06b6d4);
   color: #fff;
-  box-shadow: 0 6px 15px rgba(110, 142, 251, 0.4);
+  box-shadow: 0 6px 15px rgba(79, 70, 229, 0.4);
 }
 
 .register-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(110, 142, 251, 0.5);
-  background: linear-gradient(90deg, #5875e0, #9460c5);
+  box-shadow: 0 10px 20px rgba(79, 70, 229, 0.5);
+  background: linear-gradient(90deg, #4338ca, #0891b2);
 }
 
 /* --- Message --- */
@@ -658,14 +658,14 @@
 }
 
 .footer a {
-  color: #6e8efb;
+  color: #4f46e5;
   font-weight: 500;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .footer a:hover {
-  color: #a777e3;
+  color: #06b6d4;
   text-decoration: underline;
 }
 
@@ -681,7 +681,7 @@
 /* ===== DASHBOARD PAGE ===== */
 .dashboard-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
   padding: 32px 20px;
   background-attachment: fixed;
 }
@@ -874,14 +874,14 @@
 .form-group input:focus,
 .form-group select:focus {
   outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
 }
 
 .submit-btn {
   width: 100%;
   padding: 14px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
   color: white;
   border: none;
   border-radius: 12px;
@@ -893,7 +893,7 @@
 
 .submit-btn:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 10px 25px rgba(79, 70, 229, 0.4);
 }
 
 .submit-btn:disabled {
@@ -1056,7 +1056,7 @@
 }
 
 .edit-btn:hover {
-  background: #667eea;
+  background: #4f46e5;
   color: white;
   transform: translateY(-1px);
 }
@@ -1080,7 +1080,7 @@
 .role-badge {
   display: inline-block;
   padding: 4px 12px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
   color: white;
   border-radius: 12px;
   font-size: 13px;
@@ -1106,7 +1106,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #667eea;
+  color: #4f46e5;
 }
 
 .info-content h2 {

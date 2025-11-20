@@ -81,8 +81,8 @@ export default function GuestDashboard() {
               <h2>User Profile</h2>
               <p>
                 {role === "admin" 
-                  ? "You have full administrative access to manage departments and users."
-                  : "You have view-only access. You can browse departments but cannot make changes."}
+                  ? "You have full administrative access to manage projects and users."
+                  : "You have view-only access. You can browse projects but cannot make changes."}
               </p>
             </div>
           </div>
@@ -91,16 +91,16 @@ export default function GuestDashboard() {
         {/* Departments Card */}
         <div className="dashboard-card">
           <div className="card-header">
-            <h2>Departments</h2>
+            <h2>Projects</h2>
             <span className="department-count">
-              {departments.length} {departments.length === 1 ? "department" : "departments"}
+              {departments.length} {departments.length === 1 ? "project" : "projects"}
             </span>
           </div>
 
           {loading ? (
             <div className="loading-state">
               <span className="spinner"></span>
-              <p>Loading departments...</p>
+              <p>Loading projects...</p>
             </div>
           ) : departments.length === 0 ? (
             <div className="empty-state">
@@ -108,16 +108,16 @@ export default function GuestDashboard() {
                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                 <circle cx="12" cy="10" r="3"></circle>
               </svg>
-              <p>No departments found</p>
-              <span>There are currently no departments available</span>
+              <p>No projects found</p>
+              <span>There are currently no projects available</span>
             </div>
           ) : (
             <div className="table-wrapper">
               <table className="departments-table">
                 <thead>
                   <tr>
-                    <th>Abbreviation</th>
-                    <th>Name</th>
+                    <th>Project Code</th>
+                    <th>Project Name</th>
                     <th>Description</th>
                     <th>Status</th>
                   </tr>
@@ -147,7 +147,7 @@ export default function GuestDashboard() {
         <div className="dashboard-card">
           <div className="quick-info-grid">
             <div className="quick-info-item">
-              <div className="quick-info-icon" style={{ background: "rgba(102, 126, 234, 0.1)", color: "#667eea" }}>
+              <div className="quick-info-icon" style={{ background: "rgba(79, 70, 229, 0.1)", color: "#4f46e5" }}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                   <circle cx="9" cy="7" r="4"></circle>
@@ -156,7 +156,7 @@ export default function GuestDashboard() {
                 </svg>
               </div>
               <div>
-                <h3>Total Departments</h3>
+                <h3>Total Projects</h3>
                 <p className="quick-info-value">{departments.length}</p>
               </div>
             </div>
