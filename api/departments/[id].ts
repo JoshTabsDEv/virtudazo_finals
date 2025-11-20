@@ -23,8 +23,10 @@ const db = mysql.createPool({
 });
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  const method = req.method?.toUpperCase();
+  
   // Handle CORS preflight
-  if (req.method === 'OPTIONS') {
+  if (method === 'OPTIONS') {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, DELETE, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -36,13 +38,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-  if (req.method === 'GET') return getDepartment(req, res);
-  if (req.method === 'PUT') return updateDepartment(req, res);
-  if (req.method === 'DELETE') return deleteDepartment(req, res);
-  console.log(req.method);
-  console.log(req.query);
-  console.log(req.body);
-  return res.status(405).json({ message: 'Method Not Allowed' });
+  if (method === 'GET') return getDepartment(req, res);
+  if (method === 'PUT') return updateDepartment(req, res);
+  if (method === 'DELETE') return deleteDepartment(req, res);
+  
+  return res.status(405).json({ 
+    message: 'Method Not Allowed',
+    receivedMethod: req.method,
+    allowedMethods: ['GET', 'PUT', 'DELETE', 'OPTIONS']
+  });
 }
 
 // GET: Single Department
