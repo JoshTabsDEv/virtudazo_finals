@@ -64,38 +64,206 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 0;
   position: relative;
   overflow: hidden;
 }
 
-.login-wrapper::before {
-  content: '';
+/* Animated Background Shapes */
+.bg-shapes {
   position: absolute;
-  width: 500px;
-  height: 500px;
-  background: rgba(255, 255, 255, 0.1);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.shape {
+  position: absolute;
   border-radius: 50%;
-  top: -250px;
-  right: -250px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.shape-1 {
+  width: 400px;
+  height: 400px;
+  top: -150px;
+  left: -150px;
   animation: float 20s ease-in-out infinite;
 }
 
-.login-wrapper::after {
-  content: '';
-  position: absolute;
-  width: 400px;
-  height: 400px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 50%;
-  bottom: -200px;
-  left: -200px;
+.shape-2 {
+  width: 300px;
+  height: 300px;
+  bottom: -100px;
+  right: -100px;
   animation: float 15s ease-in-out infinite reverse;
 }
 
+.shape-3 {
+  width: 200px;
+  height: 200px;
+  top: 50%;
+  right: 10%;
+  animation: float 12s ease-in-out infinite;
+}
+
+.shape-4 {
+  width: 250px;
+  height: 250px;
+  bottom: 20%;
+  left: 5%;
+  animation: float 18s ease-in-out infinite reverse;
+}
+
 @keyframes float {
-  0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  50% { transform: translate(30px, 30px) rotate(180deg); }
+  0%, 100% { 
+    transform: translate(0, 0) rotate(0deg) scale(1);
+    opacity: 0.3;
+  }
+  50% { 
+    transform: translate(50px, 50px) rotate(180deg) scale(1.1);
+    opacity: 0.5;
+  }
+}
+
+.login-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 1024px) {
+  .login-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .login-branding {
+    display: none;
+  }
+}
+
+/* Login Branding Section */
+.login-branding {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 80px;
+  color: white;
+  position: relative;
+  z-index: 1;
+}
+
+.brand-content {
+  max-width: 500px;
+  animation: slideInLeft 0.6s ease-out;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.brand-logo {
+  width: 80px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 32px;
+  color: white;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.brand-title {
+  font-size: 42px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 16px;
+  color: white;
+  letter-spacing: -1px;
+}
+
+.brand-subtitle {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 48px;
+  line-height: 1.6;
+}
+
+.features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.feature-item:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateX(8px);
+}
+
+.feature-icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.feature-item h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 4px;
+}
+
+.feature-item p {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.5;
+}
+
+/* Login Form Container */
+.login-form-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  position: relative;
+  z-index: 1;
 }
 
 .login-container {
@@ -111,6 +279,7 @@
   border-radius: 24px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   animation: slideUp 0.5s ease-out;
+  width: 100%;
 }
 
 @keyframes slideUp {
@@ -129,7 +298,8 @@
   margin-bottom: 32px;
 }
 
-.login-header h1 {
+.login-header h1,
+.login-header h2 {
   font-size: 32px;
   font-weight: 700;
   color: #1a202c;
@@ -159,7 +329,15 @@
   font-size: 14px;
   font-weight: 600;
   color: #2d3748;
-  margin-bottom: 4px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.input-group label svg {
+  color: #667eea;
+  flex-shrink: 0;
 }
 
 .input-group input {
@@ -201,7 +379,12 @@
   font-weight: 500;
   display: flex;
   align-items: center;
+  gap: 10px;
   animation: slideDown 0.3s ease-out;
+}
+
+.message-alert svg {
+  flex-shrink: 0;
 }
 
 @keyframes slideDown {
@@ -239,11 +422,19 @@
   cursor: pointer;
   transition: all 0.2s ease;
   margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 .login-btn-primary:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+}
+
+.login-btn-primary svg {
+  flex-shrink: 0;
 }
 
 .login-btn-primary:active:not(:disabled) {
@@ -266,12 +457,20 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 .register-btn-secondary:hover:not(:disabled) {
   background: #667eea;
   color: white;
   transform: translateY(-2px);
+}
+
+.register-btn-secondary svg {
+  flex-shrink: 0;
 }
 
 .register-btn-secondary:disabled {
@@ -305,6 +504,19 @@
   display: flex;
   justify-content: center;
   margin-top: 8px;
+}
+
+.login-footer {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #e2e8f0;
+  text-align: center;
+}
+
+.login-footer p {
+  font-size: 12px;
+  color: #718096;
+  line-height: 1.5;
 }
 
 .button-loading {
@@ -471,6 +683,7 @@
   min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   padding: 32px 20px;
+  background-attachment: fixed;
 }
 
 .dashboard-container {
