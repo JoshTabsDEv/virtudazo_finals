@@ -41,6 +41,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method === 'DELETE') return deleteDepartment(req, res);
   console.log(req.method);
   console.log(req.query);
+  console.log(req.body);
   return res.status(405).json({ message: 'Method Not Allowed' });
 }
 
