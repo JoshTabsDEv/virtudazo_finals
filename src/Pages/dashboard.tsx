@@ -218,72 +218,121 @@ export default function Dashboard() {
   const [departments, setDepartments] = useState<Department[]>([]);
   const [form, setForm] = useState({ abbreviation: "", name: "", description: "", status: "" });
   const [editingId, setEditingId] = useState<number | null>(null);
-  const fullname = localStorage.getItem("fullname");
+  const [loading, setLoading] = useState(false);
+  const fullname = typeof window !== "undefined" ? localStorage.getItem("fullname") : null;
 
   const api = axios.create({
-    baseURL: "http://aranzado-finals.vercel.app",
+    baseURL: "/api", // 🔥 FIX for Vercel & CORS — no need full URL
     headers: { "Content-Type": "application/json" },
   });
 
-  // Load all users
+  // Fetch departments
   const fetchDepartments = async () => {
-    const res = await api.get("/departments");
-    setDepartments(res.data);
+    setLoading(true);
+    try {
+      const res = await api.get("/departments");
+      setDepartments(res.data.data || []); // 👈 IMPORTANT FIX
+    } catch (error) {
+      alert("Error loading departments.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
     fetchDepartments();
   }, []);
 
+  // Form change handler
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-
+  // Submit form
   const handleSubmit = async () => {
-      if (
-    !form.abbreviation.trim() ||
-    !form.name.trim() ||
-    !form.description.trim() ||
-    !form.status.trim()
-  ) {
-    alert("Please fill in all fields before submitting.");
-    return;
-  }
-    if (editingId) {
-      await api.put(`/departments/${editingId}`, form);
-    } else {
-      await api.post("/departments", form);
+    if (!form.abbreviation || !form.name || !form.description || !form.status) {
+      return alert("Please fill in all fields.");
     }
-    setForm({ abbreviation: "", name: "", description: "", status: "" });
-    setEditingId(null);
-    fetchDepartments();
+
+    try {
+      if (editingId) {
+        await api.put(`/departments/${editingId}`, form);
+      } else {
+        await api.post("/departments", form);
+      }
+      setForm({ abbreviation: "", name: "", description: "", status: "" });
+      setEditingId(null);
+      fetchDepartments();
+    } catch (error) {
+      alert("Error submitting form.");
+    }
   };
 
-
   const handleEdit = (department: Department) => {
-    setForm({
-      abbreviation: department.abbreviation,
-      name: department.name,
-      description: department.description,
-      status: department.status,
-    });
+    setForm(department);
     setEditingId(department.id);
   };
 
   const handleDelete = async (id: number) => {
     if (confirm("Are you sure you want to delete this department?")) {
-      await api.delete(`/departments/${id}`);
-      fetchDepartments();
+      try {
+        await api.delete(`/departments/${id}`);
+        fetchDepartments();
+      } catch {
+        alert("Error deleting department.");
+      }
     }
   };
 
-
-  // Logout
   const handleLogout = () => {
     localStorage.removeItem("fullname");
     window.location.href = "/";
   };
+
+  return (
+    <div>
+      <h1>Welcome, {fullname}</h1>
+      <button onClick={handleLogout}>Logout</button>
+
+      <h2>{editingId ? "Edit Department" : "Add Department"}</h2>
+      <input name="abbreviation" value={form.abbreviation} onChange={handleChange} placeholder="Abbreviation" />
+      <input name="name" value={form.name} onChange={handleChange} placeholder="Name" />
+      <input name="description" value={form.description} onChange={handleChange} placeholder="Description" />
+      <input name="status" value={form.status} onChange={handleChange} placeholder="Status" />
+      <button onClick={handleSubmit}>{editingId ? "Update" : "Submit"}</button>
+
+      <h2>Departments</h2>
+      {loading ? <p>Loading...</p> : departments.length === 0 ? <p>No departments found.</p> : null}
+
+      <table>
+        <thead>
+          <tr>
+            <th>Abbreviation</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {departments.map((dept) => (
+            <tr key={dept.id}>
+              <td>{dept.abbreviation}</td>
+              <td>{dept.name}</td>
+              <td>{dept.description}</td>
+              <td>{dept.status}</td>
+              <td>
+                <button onClick={() => handleEdit(dept)}>Edit</button>
+                <button onClick={() => handleDelete(dept.id)}>Delete</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 
 
 
@@ -362,97 +411,97 @@ export default function Dashboard() {
 
 
 
- return (
-    <div className="dashboard-page">
-      <div className="dashboard-card">
-        <div className="dashboard-header">
-          <h1>Welcome, {fullname}</h1>
-          <button className="logout-button" onClick={handleLogout}>Logout</button>
-        </div>
+//  return (
+//     <div className="dashboard-page">
+//       <div className="dashboard-card">
+//         <div className="dashboard-header">
+//           <h1>Welcome, {fullname}</h1>
+//           <button className="logout-button" onClick={handleLogout}>Logout</button>
+//         </div>
 
-        <hr />
+//         <hr />
 
-        <h2>{editingId ? "Edit Department" : "Add New Department"}</h2>
-        <div className="form-group">
-          <input
-            name="abbreviation"
-            placeholder="Abbreviation"
-            value={form.abbreviation}
-            onChange={handleChange}
-            className="dashboard-input"
-            required
-          />
-          <input
-            name="name"
-            placeholder="Name"
-            value={form.name}
-            onChange={handleChange}
-            className="dashboard-input"
-            required
-          />
-          <input
-            name="description"
-            placeholder="Description"
-            value={form.description}
-            onChange={handleChange}
-            className="dashboard-input"
-            required
-          />
-          <input
-            name="status"
-            placeholder="Status"
-            value={form.status}
-            onChange={handleChange}
-            className="dashboard-input"
-            required
-          />
-          <button onClick={handleSubmit} className="dashboard-button">
-            {editingId ? "Update" : "Add"}
-          </button>
-        </div>
+//         <h2>{editingId ? "Edit Department" : "Add New Department"}</h2>
+//         <div className="form-group">
+//           <input
+//             name="abbreviation"
+//             placeholder="Abbreviation"
+//             value={form.abbreviation}
+//             onChange={handleChange}
+//             className="dashboard-input"
+//             required
+//           />
+//           <input
+//             name="name"
+//             placeholder="Name"
+//             value={form.name}
+//             onChange={handleChange}
+//             className="dashboard-input"
+//             required
+//           />
+//           <input
+//             name="description"
+//             placeholder="Description"
+//             value={form.description}
+//             onChange={handleChange}
+//             className="dashboard-input"
+//             required
+//           />
+//           <input
+//             name="status"
+//             placeholder="Status"
+//             value={form.status}
+//             onChange={handleChange}
+//             className="dashboard-input"
+//             required
+//           />
+//           <button onClick={handleSubmit} className="dashboard-button">
+//             {editingId ? "Update" : "Add"}
+//           </button>
+//         </div>
 
-        <hr />
+//         <hr />
 
-        <h2>Department List</h2>
-        <div className="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Abbreviation</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {departments.length > 0 ? (
-                departments.map((u) => (
-                  <tr key={u.id}>
-                    <td>{u.id}</td>
-                    <td>{u.abbreviation}</td>
-                    <td>{u.name}</td>
-                    <td>{u.description}</td>
-                    <td>{u.status}</td>
-                    <td>
-                      <button className="edit-button" onClick={() => handleEdit(u)}>Edit</button>
-                      <button className="delete-button" onClick={() => handleDelete(u.id)}>Delete</button>
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan={6}>No departments found.</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  );
-}
+//         <h2>Department List</h2>
+//         <div className="table-container">
+//           <table>
+//             <thead>
+//               <tr>
+//                 <th>ID</th>
+//                 <th>Abbreviation</th>
+//                 <th>Name</th>
+//                 <th>Description</th>
+//                 <th>Status</th>
+//                 <th>Actions</th>
+//               </tr>
+//             </thead>
+//             <tbody>
+//               {departments.length > 0 ? (
+//                 departments.map((u) => (
+//                   <tr key={u.id}>
+//                     <td>{u.id}</td>
+//                     <td>{u.abbreviation}</td>
+//                     <td>{u.name}</td>
+//                     <td>{u.description}</td>
+//                     <td>{u.status}</td>
+//                     <td>
+//                       <button className="edit-button" onClick={() => handleEdit(u)}>Edit</button>
+//                       <button className="delete-button" onClick={() => handleDelete(u.id)}>Delete</button>
+//                     </td>
+//                   </tr>
+//                 ))
+//               ) : (
+//                 <tr>
+//                   <td colSpan={6}>No departments found.</td>
+//                 </tr>
+//               )}
+//             </tbody>
+//           </table>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
 
 
 
