@@ -1,16 +1,30 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import mysql from 'mysql2/promise';
 import { OAuth2Client } from 'google-auth-library';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const sslConfig = process.env.DB_SSL === 'true' || process.env.DB_SSL_MODE === 'REQUIRED' 
+  ? {
+      rejectUnauthorized: false, // Set to true in production with proper CA certificate
+    }
+  : undefined;
 
 const client = new OAuth2Client(
   "1016616466017-03fsmris44cv89qnelaed641obt80dmh.apps.googleusercontent.com"
 );
 
 const db = mysql.createPool({
-  host: 'sql12.freesqldatabase.com',
-  user: 'sql12808486',
-  password: 'NWjg9wP4ac',
-  database: 'sql12808486',
+  host: process.env.DB_HOST || 'localhost',
+  user: process.env.DB_USER || 'root',
+  password: process.env.DB_PASSWORD || '',
+  database: process.env.DB_NAME || '',
+  port: parseInt(process.env.DB_PORT || '3306'),
+  ssl: sslConfig,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
 });
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
