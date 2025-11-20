@@ -36,7 +36,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         username: user.username,
         role: user.role,
       },
+
     });
+        console.log(rows.role);
   } catch (err) {
     console.error(err);
     res.status(500).json({ success: false, message: 'Login failed' });
