@@ -39,6 +39,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method === 'GET') return getDepartment(req, res);
   if (req.method === 'PUT') return updateDepartment(req, res);
   if (req.method === 'DELETE') return deleteDepartment(req, res);
+  console.log(req.method);
   return res.status(405).json({ message: 'Method Not Allowed' });
 }
 
@@ -57,7 +58,7 @@ async function getDepartment(req: VercelRequest, res: VercelResponse) {
 }
 
 // PUT: Update Department
-async function updateDepartment(req: VercelRequest, res: VercelResponse) {
+async function  updateDepartment(req: VercelRequest, res: VercelResponse) {
   const { id } = req.query;
   const { abbreviation, name, description, status } = req.body;
 
