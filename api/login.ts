@@ -36,7 +36,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         username: user.username,
         role: user.role,
       },
-  
     });
     
   } catch (err) {

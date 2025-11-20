@@ -823,6 +823,7 @@ export default function Login() {
       if (data.success) {
         localStorage.setItem("fullname", data.fullname);
         localStorage.setItem("role", data.role);
+        console.log(data.role);
         setMessage("Login successful!");
 
         if (data.role === "admin") {

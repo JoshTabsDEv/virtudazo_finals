@@ -92,7 +92,7 @@ export default function GuestDashboard() {
   return (
     <div className="p-8">
       <h1 className="text-2xl">Welcome, {fullname}</h1>
-      <h2 className="text-lg">Role: Guest{role}</h2>
+      <h2 className="text-lg">Role:{role}</h2>
 
       {role === "admin" ? (
         <div>
