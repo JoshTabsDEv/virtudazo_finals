@@ -22,10 +22,10 @@ const db = mysql.createPool({
   queueLimit: 0
 });
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(req: VercelRequest, res: VercelResponse, { params }) {
   if (req.method === 'GET') return getDepartment(req, res);
-  if (req.method === 'PUT') return updateDepartment(req, res);
-  if (req.method === 'DELETE') return deleteDepartment(req, res);
+  if (req.method === 'PUT') return updateDepartment(req, res, { params });
+  if (req.method === 'DELETE') return deleteDepartment(req, res, { params });
   return res.status(405).json({ message: 'Method Not Allowed' });
 }
 
