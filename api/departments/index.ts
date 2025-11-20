@@ -31,7 +31,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 // GET: All Departments
 async function getDepartments(res: VercelResponse) {
   try {
-    const [rows] = await db.query("SELECT * FROM department");
+    const [rows] = await db.query("SELECT * FROM departments");
     res.json({ success: true, data: rows });
   } catch (error) {
     console.error(error);
@@ -48,7 +48,7 @@ async function createDepartment(req: VercelRequest, res: VercelResponse) {
 
   try {
     await db.query(
-      "INSERT INTO department (abbreviation, name, description, status) VALUES (?, ?, ?, ?)",
+      "INSERT INTO departments (abbreviation, name, description, status) VALUES (?, ?, ?, ?)",
       [abbreviation, name, description, status]
     );
     res.status(201).json({ success: true, message: 'Department added successfully' });
