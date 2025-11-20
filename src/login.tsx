@@ -130,8 +130,8 @@ export default function Login() {
                   <path d="M2 12l10 5 10-5"></path>
                 </svg>
               </div>
-              <h1 className="brand-title">Department Management System</h1>
-              <p className="brand-subtitle">Streamline your organization's department management with ease</p>
+              <h1 className="brand-title">Project Management System</h1>
+              <p className="brand-subtitle">Streamline your organization's project management with ease</p>
               
               <div className="features-list">
                 <div className="feature-item">
@@ -157,7 +157,7 @@ export default function Login() {
                   </div>
                   <div>
                     <h3>Easy Management</h3>
-                    <p>Intuitive interface for managing departments</p>
+                    <p>Intuitive interface for managing projects</p>
                   </div>
                 </div>
                 
