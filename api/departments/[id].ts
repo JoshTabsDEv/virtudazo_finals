@@ -34,7 +34,7 @@ async function getDepartment(req: VercelRequest, res: VercelResponse) {
   const { id } = req.query;
 
   try {
-    const [rows]: any = await db.query("SELECT * FROM department WHERE id = ?", [id]);
+    const [rows]: any = await db.query("SELECT * FROM departments WHERE id = ?", [id]);
     if (!rows.length) return res.status(404).json({ success: false, message: 'Department not found' });
     res.json({ success: true, data: rows[0] });
   } catch (error) {
@@ -44,13 +44,13 @@ async function getDepartment(req: VercelRequest, res: VercelResponse) {
 }
 
 // PUT: Update Department
-async function updateDepartment(req: VercelRequest, res: VercelResponse) {
-  const { id } = req.query;
+async function updateDepartment(req: VercelRequest, res: VercelResponse,{ params }) {
+  const { id } = params.query;
   const { abbreviation, name, description, status } = req.body;
 
   try {
     const [result]: any = await db.query(
-      "UPDATE department SET abbreviation = ?, name = ?, description = ?, status = ? WHERE id = ?",
+      "UPDATE departments SET abbreviation = ?, name = ?, description = ?, status = ? WHERE id = ?",
       [abbreviation, name, description, status, id]
     );
     if (result.affectedRows === 0)
@@ -64,11 +64,11 @@ async function updateDepartment(req: VercelRequest, res: VercelResponse) {
 }
 
 // DELETE: Remove Department
-async function deleteDepartment(req: VercelRequest, res: VercelResponse) {
-  const { id } = req.query;
+async function deleteDepartment(req: VercelRequest, res: VercelResponse,{ params }) {
+  const { id } =params.query;
 
   try {
-    const [result]: any = await db.query("DELETE FROM department WHERE id = ?", [id]);
+    const [result]: any = await db.query("DELETE FROM departments WHERE id = ?", [id]);
     if (result.affectedRows === 0)
       return res.status(404).json({ success: false, message: 'Department not found' });
 
