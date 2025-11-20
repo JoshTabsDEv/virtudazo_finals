@@ -40,6 +40,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method === 'PUT') return updateDepartment(req, res);
   if (req.method === 'DELETE') return deleteDepartment(req, res);
   console.log(req.method);
+  console.log(req.query);
   return res.status(405).json({ message: 'Method Not Allowed' });
 }
 
