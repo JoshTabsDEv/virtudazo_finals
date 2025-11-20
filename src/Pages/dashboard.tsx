@@ -255,11 +255,12 @@ export default function Dashboard() {
   }
 
   try {
-    if (editingId !== null) {   // 🔥 FIXED
-      await api.put(`/departments/${editingId}`, form);
-    } else {
-      await api.post("/departments", form);
-    }
+    if (editingId !== null && editingId > 0) {
+  await api.put(`/departments/${editingId}`, form);
+} else {
+  await api.post("/departments", form);
+}
+
 
     setForm({ abbreviation: "", name: "", description: "", status: "" });
     setEditingId(null); // reset edit mode
@@ -271,6 +272,7 @@ export default function Dashboard() {
 
 
  const handleEdit = (department: Department) => {
+   console.log("Editing department:", department); // 👀 Check ID here!
   setForm({
     abbreviation: department.abbreviation,
     name: department.name,
