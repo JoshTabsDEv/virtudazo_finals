@@ -847,7 +847,7 @@ export default function Login() {
         return;
       }
 
-      const res = await axios.post("https://aranzado-finals.vercel.app//google-login", {
+      const res = await axios.post("https://aranzado-finals.vercel.app/api/google-login", {
         token: credentialResponse.credential,
       });
 
