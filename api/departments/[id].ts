@@ -22,10 +22,23 @@ const db = mysql.createPool({
   queueLimit: 0
 });
 
-export default async function handler(req: VercelRequest, res: VercelResponse, { params }) {
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+  // Handle CORS preflight
+  if (req.method === 'OPTIONS') {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    return res.status(200).end();
+  }
+
+  // Set CORS headers for all responses
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
   if (req.method === 'GET') return getDepartment(req, res);
-  if (req.method === 'PUT') return updateDepartment(req, res, { params });
-  if (req.method === 'DELETE') return deleteDepartment(req, res, { params });
+  if (req.method === 'PUT') return updateDepartment(req, res);
+  if (req.method === 'DELETE') return deleteDepartment(req, res);
   return res.status(405).json({ message: 'Method Not Allowed' });
 }
 
@@ -44,8 +57,8 @@ async function getDepartment(req: VercelRequest, res: VercelResponse) {
 }
 
 // PUT: Update Department
-async function updateDepartment(req: VercelRequest, res: VercelResponse,{ params }) {
-  const { id } = params.query;
+async function updateDepartment(req: VercelRequest, res: VercelResponse) {
+  const { id } = req.query;
   const { abbreviation, name, description, status } = req.body;
 
   try {
@@ -64,8 +77,8 @@ async function updateDepartment(req: VercelRequest, res: VercelResponse,{ params
 }
 
 // DELETE: Remove Department
-async function deleteDepartment(req: VercelRequest, res: VercelResponse,{ params }) {
-  const { id } =params.query;
+async function deleteDepartment(req: VercelRequest, res: VercelResponse) {
+  const { id } = req.query;
 
   try {
     const [result]: any = await db.query("DELETE FROM departments WHERE id = ?", [id]);
