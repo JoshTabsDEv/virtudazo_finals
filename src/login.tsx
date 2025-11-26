@@ -109,7 +109,7 @@ export default function Login() {
   };
 
   return (
-    <GoogleOAuthProvider clientId="1016616466017-03fsmris44cv89qnelaed641obt80dmh.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId="479399301536-afgjpqd0habcqp62qg472ladfqmivvpl.apps.googleusercontent.com">
       <div className="login-wrapper">
         {/* Animated Background Elements */}
         <div className="bg-shapes">
